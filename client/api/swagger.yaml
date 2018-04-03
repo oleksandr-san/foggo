@@ -1,0 +1,69 @@
+---
+swagger: "2.0"
+info:
+  version: "0.1.18"
+  title: "Temperature Gateway"
+host: "127.0.0.1:3001"
+schemes:
+- "http"
+- "https"
+paths:
+  /hello:
+    post:
+      description: "Interface establishment\n"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "Student Id"
+        required: true
+        type: "string"
+        format: "string"
+        x-exportParamName: "Id"
+      - name: "temperature"
+        in: "query"
+        description: "Temperature"
+        required: true
+        type: "number"
+        format: "number"
+        x-exportParamName: "Temperature"
+      responses:
+        200:
+          description: "true or false"
+          schema:
+            type: "boolean"
+            title: "EstablishmentResult"
+        400:
+          description: "wrong parameters"
+          schema:
+            type: "boolean"
+            title: "EstablishmentError"
+  /list:
+    get:
+      description: "5 min list\n"
+      parameters: []
+      responses:
+        200:
+          description: "get 5 min list"
+          schema:
+            type: "array"
+            title: "ArrayOfData"
+            items:
+              $ref: "#/definitions/Data"
+        404:
+          description: "empty"
+          schema:
+            type: "boolean"
+            title: "ErrorMessage"
+definitions:
+  Data:
+    properties:
+      id:
+        type: "string"
+      temperature:
+        type: "number"
+      timestamp:
+        type: "integer"
+    example:
+      id: "32167"
+      temperature: 25.39999999999999857891452847979962825775146484375
+      timestamp: 146581298050
