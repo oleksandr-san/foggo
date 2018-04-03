@@ -61,6 +61,7 @@ func HelloPost(w http.ResponseWriter, r *http.Request) {
 func ListGet(w http.ResponseWriter, r *http.Request) {
 	timestamp := int(time.Now().Add(time.Minute * -5).Unix())
 	data, err := GetData(timestamp)
+
 	if err != nil {
 		log.Printf("database error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -68,6 +69,7 @@ func ListGet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mdata, err := json.Marshal(data)
+
 	if err != nil {
 		log.Printf("marshalling error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)

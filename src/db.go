@@ -33,7 +33,7 @@ func getData(db *sql.DB, timestamp int) ([]Data, error) {
 		return nil, err
 	}
 
-	var result []Data
+	result := make([]Data, 0)
 	for rows.Next() {
 		var t Data
 		err = rows.Scan(&t.Id, &t.Temperature, &t.Timestamp)
