@@ -2,7 +2,7 @@ package foggo
 
 import (
 	"encoding/json"
-	"fmt"
+	"time"
 	"log"
 	"net/http"
 	"strconv"
@@ -33,23 +33,39 @@ func HelloPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data, err := json.Marshal(true)
+	data := Data{
+		Id: id,
+		Temperature: float32(t),
+		Timestamp: int32(time.Now().Unix()),
+	}
+
+	err = AddData(data)
+	if err != nil {
+		log.Printf("adding data: %v", err)
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	js, err := json.Marshal(true)
 	if err != nil {
 		log.Printf("marshalling error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	fmt.Printf("id: %s; temperature: %v, response: %v\n", id, t, data)
-
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
-	w.Write(data)
+	w.Write(js)
 }
 
 func ListGet(w http.ResponseWriter, r *http.Request) {
-	var data []Data
-	data = append(data, Data{"LUL", 36.6, int32(0)})
+	timestamp := int(time.Now().Add(time.Minute * -5).Unix())
+	data, err := GetData(timestamp)
+	if err != nil {
+		log.Printf("database error: %v", err)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	mdata, err := json.Marshal(data)
 	if err != nil {
