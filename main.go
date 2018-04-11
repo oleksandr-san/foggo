@@ -11,7 +11,7 @@ import (
 	//
 	//    sw "github.com/myname/myrepo/go"
 	//
-	sw "./src"
+	sw "./server"
 )
 
 func main() {
