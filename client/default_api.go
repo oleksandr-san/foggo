@@ -54,8 +54,7 @@ func (a *DefaultApiService) HelloPost(ctx context.Context, id string, temperatur
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		}
+	localVarHttpHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
@@ -80,7 +79,6 @@ func (a *DefaultApiService) HelloPost(ctx context.Context, id string, temperatur
 	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
 		return successPayload, localVarHttpResponse, err
 	}
-
 
 	return successPayload, localVarHttpResponse, err
 }
@@ -105,7 +103,6 @@ func (a *DefaultApiService) ListGet(ctx context.Context) ([]common.Data,  *http.
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{  }
 
@@ -116,8 +113,7 @@ func (a *DefaultApiService) ListGet(ctx context.Context) ([]common.Data,  *http.
 	}
 
 	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		}
+	localVarHttpHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHttpHeaderAccept := selectHeaderAccept(localVarHttpHeaderAccepts)
@@ -142,7 +138,6 @@ func (a *DefaultApiService) ListGet(ctx context.Context) ([]common.Data,  *http.
 	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
 		return successPayload, localVarHttpResponse, err
 	}
-
 
 	return successPayload, localVarHttpResponse, err
 }

@@ -71,7 +71,6 @@ func atoi(in string) (int, error) {
 	return strconv.Atoi(in)
 }
 
-
 // selectHeaderContentType select a content type from the available list.
 func selectHeaderContentType(contentTypes []string) string {
 	if len(contentTypes) == 0 {
@@ -262,7 +261,6 @@ func (c *APIClient) prepareRequest (
 	
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-	
 
 	if ctx != nil {
 		// add context to the request
