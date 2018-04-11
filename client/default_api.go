@@ -1,4 +1,4 @@
-package swagger
+package client
 
 import (
 	"io/ioutil"
@@ -7,6 +7,8 @@ import (
 	"strings"
 	"golang.org/x/net/context"
 	"encoding/json"
+
+	"../common"
 )
 
 // Linger please
@@ -86,14 +88,14 @@ func (a *DefaultApiService) HelloPost(ctx context.Context, id string, temperatur
 /* DefaultApiService 
  5 min list 
  * @param ctx context.Context for authentication, logging, tracing, etc.
- @return []Data*/
-func (a *DefaultApiService) ListGet(ctx context.Context) ([]Data,  *http.Response, error) {
+ @return []common.Data*/
+func (a *DefaultApiService) ListGet(ctx context.Context) ([]common.Data,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  []Data
+	 	successPayload  []common.Data
 	)
 
 	// create path and map variables
