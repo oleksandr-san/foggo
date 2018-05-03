@@ -46,18 +46,22 @@ var routes = Routes{
 		"/",
 		Index,
 	},
-
 	Route{
 		"HelloPost",
 		strings.ToUpper("Post"),
 		"/hello",
 		HelloPost,
 	},
-
 	Route{
 		"ListGet",
 		strings.ToUpper("Get"),
 		"/list",
 		ListGet,
+	},
+	Route{
+		"Discover",
+		strings.ToUpper("Get"),
+		"/discover",
+		Discover,
 	},
 }
