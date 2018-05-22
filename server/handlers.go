@@ -126,7 +126,7 @@ func getDataFromServer(ip string) ([]common.Data, error) {
 	case <-time.After(1 * time.Second):
 		fmt.Println("overslept")
 	case <-ctx.Done():
-		fmt.Println("done") // prints "context deadline exceeded"
+		fmt.Println("done")
 	}
 
 	return data, nil
@@ -136,36 +136,32 @@ func getDataFromServer(ip string) ([]common.Data, error) {
 func Discover(w http.ResponseWriter, r *http.Request) {
 	ips, err := getIPAdresses()
 	if err != nil {
-		fmt.Print(err)
+		log.Fatal(err)
 	}
 
-	fmt.Print(ips)
-
 	for _, ip := range ips {
-		fmt.Printf("Getting data from %v ...\n", ip)
 		data, err := getDataFromServer(ip)
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 		}
 
 		for _, item := range data {
 			newItem := common.Data{
 				Id: item.Id,
 				Temperature: item.Temperature,
-				Timestamp: int32(time.Now().Unix()),
+				Timestamp: item.Timestamp,
 			}
 			
 			err = AddData(newItem)
 			if err != nil {
-				log.Printf("adding data: %v", err)
 				http.Error(w, err.Error(), http.StatusBadRequest)
+				return
 			}
 		}
 	}
 
 	js, err := json.Marshal(true)
 	if err != nil {
-		log.Printf("marshalling error: %v", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
