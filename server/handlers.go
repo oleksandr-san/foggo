@@ -15,6 +15,8 @@ import (
 	cl "../client"
 )
 
+const addressServer = "http://lab.ytdev.com/"
+
 func fetchParameters(r *http.Request) (string, float64, error) {
 	id := r.FormValue("id")
 	t, err := strconv.ParseFloat(r.FormValue("temperature"), 64)
@@ -89,23 +91,23 @@ func ListGet(w http.ResponseWriter, r *http.Request) {
 }
 
 func getIPAdresses() ([]string, error) {
-	response, err := http.Get("http://lab.ytdev.com/")
+	response, err := http.Get(addressServer)
     if err != nil {
         return nil, err
-    } else {
-        defer response.Body.Close()
-        contents, err := ioutil.ReadAll(response.Body)
-        if err != nil {
-            return nil, err
-		}
+	}
 
-		var addresses []string
-		if err := json.Unmarshal(contents, &addresses); err != nil {
-			return nil, err
-		}
+	defer response.Body.Close()
+	contents, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
 
-		return addresses, nil
-    }
+	var addresses []string
+	if err := json.Unmarshal(contents, &addresses); err != nil {
+		return nil, err
+	}
+
+	return addresses, nil
 }
 
 func getDataFromServer(ip string) ([]common.Data, error) {
